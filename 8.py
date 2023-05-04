@@ -18,7 +18,7 @@ def crossover(parents,offspring_size):
         parent2_idx = (k+1)%parents.shape[0]
         offspring[k, 0:crossover_point] = parents[parent1_idx,0:crossover_point]
         offspring[k, crossover_point:] = parents[parent2_idx, crossover_point:]
-        return offspring
+    return offspring
 def mutation(offspring_crossover, num_mutations=1):
     mutations_counter = numpy.uint8(offspring_crossover.shape[1] / num_mutations)
     for idx in range(offspring_crossover.shape[0]):
@@ -27,7 +27,7 @@ def mutation(offspring_crossover, num_mutations=1):
             random_value = numpy.random.uniform(-1.0, 1.0,1)
             offspring_crossover[idx, gene_idx] = offspring_crossover[idx,gene_idx] + random_value
             gene_idx = gene_idx +mutations_counter 
-            return offspring_crossover
+    return offspring_crossover
 import numpy 
 equation_inputs = [4,-2,3.5,5,-11,-4.7]
 num_weights = len(equation_inputs)
@@ -43,23 +43,23 @@ for generation in range(num_generations):
     fitness = cal_pop_fitness(equation_inputs,new_population) 
     print("Fitness")
     print(fitness)
-best_outputs.append(numpy.max(numpy.sum(new_population*equation_inputs,axis=1))) 
-print("Best result : ", numpy.max(numpy.sum(new_population*equation_inputs, axis=1)))
-parents =select_mating_pool(new_population, fitness,num_parents_mating)
-print("Parents")
-print(parents)
-offspring_crossover = crossover(parents,offspring_size=(pop_size[0]-parents.shape[0], num_weights))
-print("Crossover")
-print(offspring_crossover)
-offspring_mutation = mutation(offspring_crossover,num_mutations=2) 
-print("Mutation")
-print(offspring_mutation)
-new_population[0:parents.shape[0], :] = parents
-new_population[parents.shape[0]:, :] = offspring_mutation
-fitness = cal_pop_fitness(equation_inputs,new_population)
-best_match_idx = numpy.where(fitness ==numpy.max(fitness))
-print("Best solution : ",new_population[best_match_idx, :]) 
-print("Bestsolution fitness : ", fitness[best_match_idx])
+    best_outputs.append(numpy.max(numpy.sum(new_population*equation_inputs,axis=1))) 
+    print("Best result : ", numpy.max(numpy.sum(new_population*equation_inputs, axis=1)))
+    parents =select_mating_pool(new_population, fitness,num_parents_mating)
+    print("Parents")
+    print(parents)
+    offspring_crossover = crossover(parents,offspring_size=(pop_size[0]-parents.shape[0], num_weights))
+    print("Crossover")
+    print(offspring_crossover)
+    offspring_mutation = mutation(offspring_crossover,num_mutations=2) 
+    print("Mutation")
+    print(offspring_mutation)
+    new_population[0:parents.shape[0], :] = parents
+    new_population[parents.shape[0]:, :] = offspring_mutation
+    fitness = cal_pop_fitness(equation_inputs,new_population)
+    best_match_idx = numpy.where(fitness ==numpy.max(fitness))
+    print("Best solution : ",new_population[best_match_idx, :]) 
+    print("Bestsolution fitness : ", fitness[best_match_idx])
 import matplotlib.pyplot
 matplotlib.pyplot.plot(best_outputs)
 matplotlib.pyplot.xlabel("Iteration")
