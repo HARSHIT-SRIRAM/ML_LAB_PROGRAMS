@@ -9,7 +9,7 @@ def select_mating_pool(pop, fitness, num_parents):
         max_fitness_idx =max_fitness_idx[0][0]
         parents[parent_num, :] =pop[max_fitness_idx, :]
         fitness[max_fitness_idx] = -99999999999
-        return parents
+    return parents
 def crossover(parents,offspring_size): 
     offspring =numpy.empty(offspring_size)
     crossover_point = numpy.uint8(offspring_size[1]/2)
